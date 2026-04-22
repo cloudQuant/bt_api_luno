@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from bt_api_base.containers.exchanges.exchange_data import ExchangeData
 
-
 _REST_PATHS = {
     "ticker": "/ticker",
     "orderbook": "/orderbook",

@@ -4,6 +4,7 @@ import time
 from typing import Any
 
 from bt_api_base.feeds.capability import Capability
+
 from bt_api_luno.feeds.live_luno.request_base import LunoRequestData
 
 
@@ -26,7 +27,7 @@ class LunoRequestDataSpot(LunoRequestData):
         self.exchange_name = kwargs.get("exchange_name", "LUNO___SPOT")
 
     def _get_tick(
-        self, symbol: str, extra_data: Any = None, **kwargs: Any
+        self, symbol: str, extra_data: Any = None, **kwargs: Any,
     ) -> tuple[str, dict[str, Any], Any]:
         path = "GET /ticker"
         return self._request_prepare(
@@ -55,7 +56,7 @@ class LunoRequestDataSpot(LunoRequestData):
         )
 
     def _get_depth(
-        self, symbol: str, count: int = 20, extra_data: Any = None, **kwargs: Any
+        self, symbol: str, count: int = 20, extra_data: Any = None, **kwargs: Any,
     ) -> tuple[str, dict[str, Any], Any]:
         path = "/orderbook"
         return self._request_prepare(
@@ -77,7 +78,7 @@ class LunoRequestDataSpot(LunoRequestData):
         return self.request(path, params=params, extra_data=extra_data)
 
     def async_get_depth(
-        self, symbol: str, count: int = 20, extra_data: Any = None, **kwargs: Any
+        self, symbol: str, count: int = 20, extra_data: Any = None, **kwargs: Any,
     ) -> None:
         path, params, extra_data = self._get_depth(symbol, count, extra_data, **kwargs)
         self.submit(
@@ -112,13 +113,13 @@ class LunoRequestDataSpot(LunoRequestData):
         return [klines], True
 
     def get_kline(
-        self, symbol: str, period: str, count: int = 20, extra_data: Any = None, **kwargs: Any
+        self, symbol: str, period: str, count: int = 20, extra_data: Any = None, **kwargs: Any,
     ) -> Any:
         path, params, extra_data = self._get_kline(symbol, period, count, extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
     def async_get_kline(
-        self, symbol: str, period: str, count: int = 20, extra_data: Any = None, **kwargs: Any
+        self, symbol: str, period: str, count: int = 20, extra_data: Any = None, **kwargs: Any,
     ) -> Any:
         path, params, extra_data = self._get_kline(symbol, period, count, extra_data, **kwargs)
         self.submit(
@@ -127,16 +128,16 @@ class LunoRequestDataSpot(LunoRequestData):
         )
 
     def _get_exchange_info(
-        self, extra_data: Any = None, **kwargs: Any
+        self, extra_data: Any = None, **kwargs: Any,
     ) -> tuple[str, dict[str, Any], Any]:
         path = "/markets"
         return self._request_prepare(
-            path, params={}, extra_data=extra_data, request_type="get_exchange_info", symbol=""
+            path, params={}, extra_data=extra_data, request_type="get_exchange_info", symbol="",
         )
 
     @staticmethod
     def _get_exchange_info_normalize_function(
-        input_data: Any, extra_data: Any
+        input_data: Any, extra_data: Any,
     ) -> tuple[list[Any], bool]:
         if not input_data:
             return [], False
@@ -148,11 +149,11 @@ class LunoRequestDataSpot(LunoRequestData):
         return self.request(path, params=params, extra_data=extra_data)
 
     def _get_balance(
-        self, symbol: str | None = None, extra_data: Any = None, **kwargs: Any
+        self, symbol: str | None = None, extra_data: Any = None, **kwargs: Any,
     ) -> tuple[str, dict[str, Any], Any]:
         path = "/balance"
         return self._request_prepare(
-            path, params={}, extra_data=extra_data, request_type="get_balance", symbol=symbol or ""
+            path, params={}, extra_data=extra_data, request_type="get_balance", symbol=symbol or "",
         )
 
     @staticmethod
@@ -166,11 +167,11 @@ class LunoRequestDataSpot(LunoRequestData):
         return self.request(path, params=params, extra_data=extra_data)
 
     def _get_account(
-        self, extra_data: Any = None, **kwargs: Any
+        self, extra_data: Any = None, **kwargs: Any,
     ) -> tuple[str, dict[str, Any], Any]:
         path = "/balance"
         return self._request_prepare(
-            path, params={}, extra_data=extra_data, request_type="get_account", symbol=""
+            path, params={}, extra_data=extra_data, request_type="get_account", symbol="",
         )
 
     @staticmethod
@@ -202,7 +203,7 @@ class LunoRequestDataSpot(LunoRequestData):
             "price": str(price),
         }
         return self._request_prepare(
-            path, params=params, extra_data=extra_data, request_type="make_order", symbol=symbol
+            path, params=params, extra_data=extra_data, request_type="make_order", symbol=symbol,
         )
 
     @staticmethod
@@ -224,12 +225,12 @@ class LunoRequestDataSpot(LunoRequestData):
         **kwargs: Any,
     ) -> Any:
         path, params, extra_data = self._make_order(
-            symbol, volume, price, order_type, offset, extra_data, **kwargs
+            symbol, volume, price, order_type, offset, extra_data, **kwargs,
         )
         return self.request(path, params=params, extra_data=extra_data)
 
     def _cancel_order(
-        self, symbol: str, order_id: str, extra_data: Any = None, **kwargs: Any
+        self, symbol: str, order_id: str, extra_data: Any = None, **kwargs: Any,
     ) -> tuple[str, dict[str, str], Any]:
         path = "POST /stoporder"
         params = {"order_id": order_id}
@@ -243,7 +244,7 @@ class LunoRequestDataSpot(LunoRequestData):
         )
 
     def cancel_order(
-        self, symbol: str, order_id: str, extra_data: Any = None, **kwargs: Any
+        self, symbol: str, order_id: str, extra_data: Any = None, **kwargs: Any,
     ) -> Any:
         path, params, extra_data = self._cancel_order(symbol, order_id, extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
@@ -261,12 +262,6 @@ class LunoRequestDataSpot(LunoRequestData):
 
         extra_data = update_extra_data(
             extra_data,
-            **{
-                "request_type": request_type,
-                "symbol_name": symbol,
-                "asset_type": self.asset_type,
-                "exchange_name": self.exchange_name,
-                "normalize_function": getattr(self, f"_{request_type}_normalize_function"),
-            },
+            request_type=request_type, symbol_name=symbol, asset_type=self.asset_type, exchange_name=self.exchange_name, normalize_function=getattr(self, f"_{request_type}_normalize_function"),
         )
         return path, params or {}, extra_data

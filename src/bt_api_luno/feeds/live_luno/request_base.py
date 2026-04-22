@@ -94,7 +94,7 @@ class LunoRequestData(Feed):
                 "symbol_name": symbol,
                 "asset_type": self.asset_type,
                 "exchange_name": self.exchange_name,
-            }
+            },
         )
         return path, params or {}, payload
 
