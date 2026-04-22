@@ -10,7 +10,8 @@ __version__ = "0.1.0"
 
 
 def register_plugin(
-    registry: type[ExchangeRegistry], runtime_factory: type[GatewayRuntimeRegistrar],
+    registry: type[ExchangeRegistry],
+    runtime_factory: type[GatewayRuntimeRegistrar],
 ) -> PluginInfo:
     _register_luno(registry)
     return plugin_info()

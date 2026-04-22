@@ -33,7 +33,10 @@ class LunoRequestTickerData(TickerData):
     @classmethod
     def from_json(cls, data: dict[str, Any]) -> LunoRequestTickerData:
         return cls(
-            data, symbol_name=data.get("pair"), asset_type="SPOT", has_been_json_encoded=True,
+            data,
+            symbol_name=data.get("pair"),
+            asset_type="SPOT",
+            has_been_json_encoded=True,
         )
 
     def init_data(self) -> LunoRequestTickerData:

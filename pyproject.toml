@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "bt_api_luno"
-version = "0.1.0"
+version = "0.1.1"
 description = "Luno exchange adapter for bt_api framework - African cryptocurrency exchange"
 readme = "README.md"
 requires-python = ">=3.9"
@@ -76,9 +76,7 @@ select = [
     "B",
     "C4",
     "T20",
-    "UP",
     "YTT",
-    "ANN",
     "ASYNC",
     "BLE",
     "COM",
@@ -90,20 +88,18 @@ select = [
     "PIE",
     "T10",
     "DJ",
-    "E501",
-    "E711",
-    "E713",
-    "E714",
-    "E721",
-    "E722",
-    "E731",
-    "W291",
-    "W292",
-    "W293",
+    "S",
+    "N",
+    "RUF100",
+    "PERF",
+    "PIE790",
 ]
 ignore = [
     "E501",
-    "E731",
+    "B008",
+    "N802",
+    "N803",
+    "S101",
 ]
 
 [tool.mypy]
