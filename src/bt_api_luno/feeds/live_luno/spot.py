@@ -1,3 +1,4 @@
+"""Module-level docstring."""
 from __future__ import annotations
 
 import time
@@ -8,6 +9,7 @@ from bt_api_luno.feeds.live_luno.request_base import LunoRequestData
 
 
 class LunoRequestDataSpot(LunoRequestData):
+    """Class LunoRequestDataSpot"""
     @classmethod
     def _capabilities(cls) -> set[Capability]:
         return {
@@ -22,6 +24,7 @@ class LunoRequestDataSpot(LunoRequestData):
         }
 
     def __init__(self, data_queue: Any = None, **kwargs: Any) -> None:
+        """__init__ method"""
         super().__init__(data_queue, **kwargs)
         self.exchange_name = kwargs.get("exchange_name", "LUNO___SPOT")
 
@@ -44,10 +47,12 @@ class LunoRequestDataSpot(LunoRequestData):
         return [input_data], True
 
     def get_tick(self, symbol: str, extra_data: Any = None, **kwargs: Any) -> Any:
+        """get_tick method"""
         path, params, extra_data = self._get_tick(symbol, extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
     def async_get_tick(self, symbol: str, extra_data: Any = None, **kwargs: Any) -> None:
+        """async_get_tick method"""
         path, params, extra_data = self._get_tick(symbol, extra_data, **kwargs)
         self.submit(
             self.async_request(path, params=params, extra_data=extra_data),
@@ -73,12 +78,14 @@ class LunoRequestDataSpot(LunoRequestData):
         return [input_data], True
 
     def get_depth(self, symbol: str, count: int = 20, extra_data: Any = None, **kwargs: Any) -> Any:
+        """get_depth method"""
         path, params, extra_data = self._get_depth(symbol, count, extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
     def async_get_depth(
         self, symbol: str, count: int = 20, extra_data: Any = None, **kwargs: Any
     ) -> None:
+        """async_get_depth method"""
         path, params, extra_data = self._get_depth(symbol, count, extra_data, **kwargs)
         self.submit(
             self.async_request(path, params=params, extra_data=extra_data),
@@ -114,12 +121,14 @@ class LunoRequestDataSpot(LunoRequestData):
     def get_kline(
         self, symbol: str, period: str, count: int = 20, extra_data: Any = None, **kwargs: Any
     ) -> Any:
+        """get_kline method"""
         path, params, extra_data = self._get_kline(symbol, period, count, extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
     def async_get_kline(
         self, symbol: str, period: str, count: int = 20, extra_data: Any = None, **kwargs: Any
     ) -> Any:
+        """async_get_kline method"""
         path, params, extra_data = self._get_kline(symbol, period, count, extra_data, **kwargs)
         self.submit(
             self.async_request(path, params=params, extra_data=extra_data),
@@ -144,6 +153,7 @@ class LunoRequestDataSpot(LunoRequestData):
         return [markets], True
 
     def get_exchange_info(self, extra_data: Any = None, **kwargs: Any) -> Any:
+        """get_exchange_info method"""
         path, params, extra_data = self._get_exchange_info(extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
@@ -162,6 +172,7 @@ class LunoRequestDataSpot(LunoRequestData):
         return [input_data], True
 
     def get_balance(self, symbol: str | None = None, extra_data: Any = None, **kwargs: Any) -> Any:
+        """get_balance method"""
         path, params, extra_data = self._get_balance(symbol, extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
@@ -180,6 +191,7 @@ class LunoRequestDataSpot(LunoRequestData):
         return [input_data], True
 
     def get_account(self, symbol: str = "ALL", extra_data: Any = None, **kwargs: Any) -> Any:
+        """get_account method"""
         path, params, extra_data = self._get_account(extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 
@@ -223,6 +235,7 @@ class LunoRequestDataSpot(LunoRequestData):
         extra_data: Any = None,
         **kwargs: Any,
     ) -> Any:
+        """make_order method"""
         path, params, extra_data = self._make_order(
             symbol, volume, price, order_type, offset, extra_data, **kwargs
         )
@@ -245,6 +258,7 @@ class LunoRequestDataSpot(LunoRequestData):
     def cancel_order(
         self, symbol: str, order_id: str, extra_data: Any = None, **kwargs: Any
     ) -> Any:
+        """cancel_order method"""
         path, params, extra_data = self._cancel_order(symbol, order_id, extra_data, **kwargs)
         return self.request(path, params=params, extra_data=extra_data)
 

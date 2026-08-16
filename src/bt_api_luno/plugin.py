@@ -1,3 +1,4 @@
+"""Module-level docstring."""
 from __future__ import annotations
 
 from bt_api_base.gateway.registrar import GatewayRuntimeRegistrar
@@ -13,6 +14,7 @@ __version__ = "0.1.0"
 def register_plugin(
     registry: type[ExchangeRegistry], runtime_factory: type[GatewayRuntimeRegistrar]
 ) -> PluginInfo:
+    """register_plugin function"""
     _register_luno(registry)
     return plugin_info()
 
@@ -21,10 +23,12 @@ def register_luno(
     registry: type[ExchangeRegistry] = ExchangeRegistry,
     runtime_factory: type[GatewayRuntimeRegistrar] = GatewayRuntimeRegistrar,
 ) -> PluginInfo:
+    """register_luno function"""
     return register_plugin(registry, runtime_factory)
 
 
 def plugin_info() -> PluginInfo:
+    """plugin_info function"""
     return PluginInfo(
         name="bt_api_luno",
         version=__version__,

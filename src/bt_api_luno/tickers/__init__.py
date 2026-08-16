@@ -1,3 +1,4 @@
+"""Module-level docstring."""
 from __future__ import annotations
 
 from typing import Any
@@ -6,6 +7,7 @@ from bt_api_base.containers.tickers.ticker import TickerData
 
 
 class LunoRequestTickerData(TickerData):
+    """Class LunoRequestTickerData"""
     def __init__(
         self,
         ticker_info: Any,
@@ -13,6 +15,7 @@ class LunoRequestTickerData(TickerData):
         asset_type: str = "SPOT",
         has_been_json_encoded: bool = False,
     ) -> None:
+        """__init__ method"""
         super().__init__(ticker_info, has_been_json_encoded)
         self.exchange_name = "LUNO"
         self.symbol_name = symbol_name
@@ -32,11 +35,13 @@ class LunoRequestTickerData(TickerData):
 
     @classmethod
     def from_json(cls, data: dict[str, Any]) -> "LunoRequestTickerData":
+        """from_json method"""
         return cls(
             data, symbol_name=data.get("pair"), asset_type="SPOT", has_been_json_encoded=True
         )
 
     def init_data(self) -> "LunoRequestTickerData":
+        """init_data method"""
         if self.has_been_init_data:
             return self
 
@@ -59,46 +64,59 @@ class LunoRequestTickerData(TickerData):
         return self
 
     def get_all_data(self) -> dict[str, Any]:
+        """get_all_data method"""
         raise NotImplementedError
 
     def get_exchange_name(self) -> str:
+        """get_exchange_name method"""
         return self.exchange_name
 
     def get_local_update_time(self) -> float:
+        """get_local_update_time method"""
         if self.timestamp is None:
             return 0.0
         return float(self.timestamp)
 
     def get_symbol_name(self) -> str:
+        """get_symbol_name method"""
         return self.symbol_name or ""
 
     def get_ticker_symbol_name(self) -> str | None:
+        """get_ticker_symbol_name method"""
         return self.ticker_symbol_name
 
     def get_asset_type(self) -> str:
+        """get_asset_type method"""
         return self.asset_type
 
     def get_server_time(self) -> float | None:
+        """get_server_time method"""
         if self.timestamp is None:
             return None
         return float(self.timestamp)
 
     def get_bid_price(self) -> float | None:
+        """get_bid_price method"""
         return self.bid_price
 
     def get_ask_price(self) -> float | None:
+        """get_ask_price method"""
         return self.ask_price
 
     def get_bid_volume(self) -> float | None:
+        """get_bid_volume method"""
         return self.bid_volume
 
     def get_ask_volume(self) -> float | None:
+        """get_ask_volume method"""
         return self.ask_volume
 
     def get_last_price(self) -> float | None:
+        """get_last_price method"""
         return self.last_price
 
     def get_last_volume(self) -> float | None:
+        """get_last_volume method"""
         return self.last_volume
 
     def __str__(self) -> str:
@@ -111,8 +129,7 @@ class LunoRequestTickerData(TickerData):
     def _as_float(value: Any) -> float | None:
         if value in (None, ""):
             return None
-        try:
-            return float(value)
+        try: return float(value)
         except (TypeError, ValueError):
             return None
 
@@ -120,8 +137,7 @@ class LunoRequestTickerData(TickerData):
     def _as_int(value: Any) -> int | None:
         if value in (None, ""):
             return None
-        try:
-            return int(value)
+        try: return int(value)
         except (TypeError, ValueError):
             return None
 

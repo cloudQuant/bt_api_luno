@@ -1,3 +1,4 @@
+"""Module documentation"""
 from __future__ import annotations
 
 from typing import Any
@@ -6,8 +7,10 @@ from bt_api_base.error import ErrorCategory, ErrorTranslator, UnifiedError, Unif
 
 
 class LunoErrorTranslator(ErrorTranslator):
+    """Class LunoErrorTranslator"""
     @classmethod
     def translate(cls, raw_error: dict[str, Any], venue: str) -> UnifiedError | None:
+        """translate method"""
         message = str(raw_error.get("error") or raw_error.get("message") or "Unknown error")
         lower = message.lower()
 
@@ -44,6 +47,7 @@ class LunoErrorTranslator(ErrorTranslator):
 
     @staticmethod
     def is_error(response: dict[str, Any]) -> bool:
+        """is_error method"""
         if not isinstance(response, dict):
             return False
         return bool(response.get("error") or response.get("message"))

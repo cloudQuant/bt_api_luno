@@ -1,3 +1,4 @@
+"""Module-level docstring."""
 from __future__ import annotations
 
 import base64
@@ -10,7 +11,9 @@ from ...exchange_data import LunoExchangeDataSpot
 
 
 class LunoRequestData(Feed):
+    """Class LunoRequestData"""
     def __init__(self, data_queue: Any = None, **kwargs: Any) -> None:
+        """__init__ method"""
         super().__init__(data_queue, **kwargs)
         self.data_queue = data_queue
         self.exchange_name = kwargs.get("exchange_name", "LUNO___SPOT")
@@ -52,6 +55,7 @@ class LunoRequestData(Feed):
         extra_data: dict[str, Any] | None = None,
         is_private: bool = False,
     ) -> RequestData:
+        """request method"""
         method, endpoint = self._resolve_method_and_path(path)
         response = self._http_client.request(
             method=method,
@@ -69,6 +73,7 @@ class LunoRequestData(Feed):
         extra_data: dict[str, Any] | None = None,
         is_private: bool = False,
     ) -> RequestData:
+        """async_request method"""
         method, endpoint = self._resolve_method_and_path(path)
         response = await self._http_client.async_request(
             method=method,
@@ -99,15 +104,18 @@ class LunoRequestData(Feed):
         return path, params or {}, payload
 
     def push_data_to_queue(self, data: Any) -> None:
+        """push_data_to_queue method"""
         if self.data_queue is not None:
             self.data_queue.put(data)
 
     def async_callback(self, future: Any) -> None:
+        """async_callback method"""
         result = future.result()
         if result is not None:
             self.push_data_to_queue(result)
 
     def disconnect(self) -> None:
+        """disconnect method"""
         self._http_client.close()
 
 
