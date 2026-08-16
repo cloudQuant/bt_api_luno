@@ -7,12 +7,12 @@ from bt_api_base.registry import ExchangeRegistry
 
 from .registry_registration import register_luno as _register_luno
 
-
 __version__ = "0.1.0"
 
 
 def register_plugin(
-    registry: type[ExchangeRegistry], runtime_factory: type[GatewayRuntimeRegistrar]
+    registry: type[ExchangeRegistry],
+    runtime_factory: type[GatewayRuntimeRegistrar],
 ) -> PluginInfo:
     """register_plugin function"""
     _register_luno(registry)
