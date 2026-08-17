@@ -133,3 +133,6 @@ markers = [
     "integration: Integration tests (may require external services)",
 ]
 
+
+[project.entry-points."bt_api.plugins"]
+luno = "bt_api_luno.plugin:register_plugin"
